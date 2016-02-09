@@ -1,0 +1,15 @@
+{
+  "name": "sample",
+  "version": "1.0.0",
+  "description": "This is a Sample of ecommerce",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Juneyoung Oh",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.13.4",
+    "morgan": "^1.6.1"
+  }
+}
