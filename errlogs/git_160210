@@ -1,0 +1,22 @@
+^CJuneyoung-ui-MacBook-Air:sample juneyoungoh$ git pull origin master
+git: error: couldn't open cache file '/var/folders/f9/_kct2z7x273d77znlctxkp6h0000gn/T/xcrun_db' (errno=File exists)
+2016-02-10 18:19:51.499 xcodebuild[2088:115634] [MT] PluginLoading: Required plug-in compatibility UUID F41BD31E-2683-44B8-AE7F-5F09E919790E for plug-in at path '~/Library/Application Support/Developer/Shared/Xcode/Plug-ins/Unity4XC.xcplugin' not present in DVTPlugInCompatibilityUUIDs
+From https://github.com/juneyoung/AmazonClone
+ * branch            master     -> FETCH_HEAD
+Already up-to-date.
+Juneyoung-ui-MacBook-Air:sample juneyoungoh$ git add -A .
+2016-02-10 18:19:59.708 xcodebuild[2127:115714] [MT] PluginLoading: Required plug-in compatibility UUID F41BD31E-2683-44B8-AE7F-5F09E919790E for plug-in at path '~/Library/Application Support/Developer/Shared/Xcode/Plug-ins/Unity4XC.xcplugin' not present in DVTPlugInCompatibilityUUIDs
+warning: CRLF will be replaced by LF in node_modules/bcrypt-nodejs/.gitattributes.
+The file will have its original line endings in your working directory.
+warning: CRLF will be replaced by LF in node_modules/bcrypt-nodejs/.npmignore.
+The file will have its original line endings in your working directory.
+warning: CRLF will be replaced by LF in node_modules/bcrypt-nodejs/LICENSE.
+The file will have its original line endings in your working directory.
+warning: CRLF will be replaced by LF in node_modules/bcrypt-nodejs/README.md.
+The file will have its original line endings in your working directory.
+warning: CRLF will be replaced by LF in node_modules/bcrypt-nodejs/bCrypt.js.
+The file will have its original line endings in your working directory.
+warning: CRLF will be replaced by LF in node_modules/bcrypt-nodejs/test-async.js.
+The file will have its original line endings in your working directory.
+warning: CRLF will be replaced by LF in node_modules/bcrypt-nodejs/test-sync.js.
+The file will have its original line endings in your working directory.
