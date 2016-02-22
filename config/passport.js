@@ -7,6 +7,7 @@ var User = require('../models/user');
 passport.serializeUser(function(user, done){
 	//_id 는 MondoDB 에서 제공되는 default ID
 	// 꼭 몽고디비의 아이디가 올 필요는 없고 키가 되는 데이타이면 오케이 user.name
+	console.log(user._id);
 	done(null, user._id);
 });
 
@@ -44,9 +45,3 @@ exports.isAuthenticated = function(req, res, next){
 	if(req.isAuthenticated()) return next();
 	res.redirect('/login');
 }
-
-
-
-module.exports = {
-
-};

@@ -37,10 +37,10 @@ UserSchema.pre('save', function(next){
 	});
 });
 
-UserSchema.pre('save', function(next){
-	var user = this;
+// UserSchema.pre('save', function(next){
+// 	var user = this;
 
-});
+// });
 
 // Comparing PW
 // methods 이후에 사용자 커스텀 펑션 추가

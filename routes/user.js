@@ -32,12 +32,14 @@ router.post('/login', passport.authenticate('local-login', {
 }));
 
 router.get('/profile', function(req, res, next){
-	//res.json(req.user);
+	//res.json(req);
+
+	//console.log(req.user.toString())
 	User.findOne({_id: req.user._id}, function(err, user){
 		if(err) return next(err);
 		//기본 ejs 형식으로 두번째에 오브젝트로 페이지에서 필요한 모델을 전달한다.
 		res.render('accounts/profile', {user: user});
-	})
+	});
 });
 
 
@@ -52,6 +54,7 @@ router.post('/signup', function(req, res, next){
 	user.profile.name = req.body.name;
 	user.email = req.body.email;
 	user.password = req.body.password;
+	console.log(user);
 
 	//mongoose method
 	User.findOne({email : req.body.email}, function(err, existingUser){
