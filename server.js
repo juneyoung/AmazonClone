@@ -14,6 +14,7 @@ var engine = require('ejs-mate');
 var session = require('express-session');
 var cookieParser =  require('cookie-parser');
 var flash = require('express-flash');
+//var flash = require('connect-flash');
 
 //이렇게 하면 session 을 파싱함// connect-mongo 는 express-session 에 의존 
 var MongoStore = require('connect-mongo/es5')(session);
@@ -55,6 +56,13 @@ app.use(flash());
 // 
 app.use(passport.initialize());
 app.use(passport.session());
+
+
+//모든 routes 에서 user 오브젝트를 볼 수 있도록 처리 
+app.use(function(req, res, next){
+	res.locals.user = req.user;
+	next();
+});
 
 
 app.engine('ejs', engine);

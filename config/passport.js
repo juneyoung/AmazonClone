@@ -29,6 +29,10 @@ passport.use('local-login', new LocalStrategy({
 	User.findOne({email : email}, function(err, user){
 		if(err) return done(err);
 
+		//console.log(req);
+		//console.log(email);
+		//console.log(password);
+
 		if(!user) return done(null, false, req.flash('loginMessage', 'No user has been found'));
 
 		//comparePassword 는 user.js 안에 선언되어 있는 function 임

@@ -33,6 +33,7 @@ router.post('/login', passport.authenticate('local-login', {
 
 router.get('/profile', function(req, res, next){
 	//res.json(req);
+	console.log(req.user);
 
 	//console.log(req.user.toString())
 	User.findOne({_id: req.user._id}, function(err, user){
@@ -70,6 +71,11 @@ router.post('/signup', function(req, res, next){
 			});
 		}
 	});
+});
+
+router.get('/logout', function(req, res, next){
+	req.logout();
+	res.redirect('/');
 });
 
 module.exports = router;
