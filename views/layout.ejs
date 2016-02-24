@@ -8,23 +8,15 @@
     <!-- <link rel="stylesheet" href="/css/bootstrap.min.css"> -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/custom.css">
-    <script src='/js/jquery.min.js'></script>
-    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'></script> 
+    <% include ./partials/javascriptOnly %>
   </head>
 
   <body>
 
     <% include ./partials/navbar %>
-
-
-
-    <div class="container">
       
-      <%- body -%>
-
-    </div> <!-- /container -->
-
+    <%- body -%>
+    
     <% include ./partials/footer %>
-
   </body>
 </html>

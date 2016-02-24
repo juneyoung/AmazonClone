@@ -26,7 +26,7 @@ router.get('/login', function(req, res, next){
 });
 
 router.post('/login', passport.authenticate('local-login', {
-	successRedict : '/profile'
+	successRedirect : '/profile'
 	, failureRedirect : '/login'
 	, failureFlash : true
 }));
@@ -55,6 +55,7 @@ router.post('/signup', function(req, res, next){
 	user.profile.name = req.body.name;
 	user.email = req.body.email;
 	user.password = req.body.password;
+	user.profile.picture = user.gravatar();
 	console.log(user);
 
 	//mongoose method
@@ -67,7 +68,14 @@ router.post('/signup', function(req, res, next){
 			user.save(function(err, user){
 				if(err) return next(err);
 				//res.json("New user has been created");
-				return res.redirect('/profile');
+				//return res.redirect('/profile');
+
+				//user is on cookie & session
+				req.logIn(user, function(err){
+					if(err) return next(err);
+					res.redirect('/profile');
+				});
+
 			});
 		}
 	});
