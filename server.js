@@ -26,6 +26,7 @@ var passport = require('passport');
 
 var secret = require('./config/secret.js');
 var User = require('./models/user');
+var Category = require('./models/category');
 
 
 var app = express();
@@ -57,11 +58,22 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 //모든 routes 에서 user 오브젝트를 볼 수 있도록 처리 
 app.use(function(req, res, next){
 	res.locals.user = req.user;
 	next();
+});
+
+//카테고리
+app.use(function(req, res, next){
+	//mongoose find({}, ...) 는 mongoDB 에서 db.collection.find() 와 같음. 전체 조회 
+	Category.find({}, function(err, categories){
+		if(err) return next(err);
+		//What is res.locals?
+		//로컬에 담는다는 의미가 session 에 set 하겠다는 의미인가?
+		res.locals.categories = categories;
+		next();
+	});
 });
 
 
@@ -70,9 +82,13 @@ app.set('view engine', 'ejs');
 
 var mainRoutes = require('./routes/main');
 var userRoutes = require('./routes/user');
+var adminRoutes = require('./routes/admin');
+var apiRoutes = require('./api/api');
 
 app.use(mainRoutes);
 app.use(userRoutes);
+app.use(adminRoutes);
+app.use('/api', apiRoutes);
 
 
 app.listen(secret.port, function(err){

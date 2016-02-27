@@ -9,6 +9,7 @@
   "author": "Juneyoung Oh",
   "license": "ISC",
   "dependencies": {
+    "async": "^1.5.2",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.2",
     "connect-flash": "^0.1.1",
@@ -19,6 +20,8 @@
     "express": "^4.13.4",
     "express-flash": "0.0.2",
     "express-session": "^1.13.0",
+    "fake": "^0.2.2",
+    "faker": "^3.0.1",
     "mongoose": "^4.4.3",
     "morgan": "^1.6.1",
     "passport": "^0.3.2",
