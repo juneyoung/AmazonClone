@@ -17,7 +17,7 @@
           <% for(var idx in categories) { %>
             
             <li>
-              <a href='#'>
+              <a href='products/<%= categories[idx]._id %>'>
                 <%= categories[idx].name %>
               </a>
             </li>

@@ -19,7 +19,7 @@ router.get('/products/:id', function(req, res, next){
 	.populate('category')
 	.exec(function(err, products){
 		if(err) return next(err);
-		res.render('/main/category', {
+		res.render('main/category', {
 			products : products
 		});
 	})
