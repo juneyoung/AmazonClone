@@ -1,6 +1,29 @@
 var router = require('express').Router();
 var Product = require('../models/product');
 
+function paginate(req, res, next){
+	var perPage = 9;
+		var page = req.params.page;
+
+		//mongoose pagination
+		//skip 에서 한 페이지 빼야 정상아냐?
+		Product.find()
+		.skip(page * perPage)
+		.limit(perPage)
+		.populate('category')
+		.exec(function(err, products){
+			if(err) return next(err);	
+			//count 는 해당 모델의 총 수량을 가져옴 
+			Product.count().exec(function(err, count){
+				if(err) return next(err);
+				res.render('main/product-main', {
+					products : products
+					, pages : count / perPage
+				});
+			});
+		});
+}
+
 Product.createMapping(function(err, mapping){
 	if(err){
 		console.log('Error create Mapping');
@@ -33,9 +56,18 @@ stream.on('error', function(err){
 	console.error(err);
 });
 
-router.get('/', function(req, res){
+router.get('/', function(req, res, next){
 	//res.json('Hello, node!');
-	res.render('main/home');
+
+	if (req.user) {
+		paginate(req, res, next);
+	} else {
+		res.render('main/home');
+	}
+});
+
+router.get('/page/:page', function(req, res, next){
+	paginate(req, res, next);
 });
 
 
