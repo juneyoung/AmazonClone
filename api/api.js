@@ -17,6 +17,19 @@ var Category = require('../models/category');
 var Product = require('../models/product');
 
 
+router.post('/search', function(req, res, next){
+	console.log(req.body.search_term);
+	Product.search({
+		query_string : { 
+			query : req.body.search_term 
+		}
+	}, function(err, results){
+		if(err) next(err);
+		return res.json(results);
+	});
+});
+
+
 router.get('/:name', function(req, res, next){
 
 	//req.body.name 과 req.params.name 이랑 뭐가 다르지?
