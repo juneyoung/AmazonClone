@@ -22,3 +22,21 @@ https://www.udemy.com/build-an-amazon-clone-nodejs-stripe-elasticsearch
  like aaa.com/jack , or aaa.com/john
 3. req.query is mainly for search. if you go to google, and try to type in something, and then take a look at the URL.
 ~~~~
+- basic setting VO by mongoose(which I always forgot)
+```
+var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+var CartSchema = new Schema({
+	owner : {type : Schema.Types.ObjectId , ref : 'User'}
+	, total : {type : Number, default : 0}
+	, items : [{
+		item : {type : Schema.Types.ObjectId, ref : 'Product'}
+		, quantity : {type : Number, default : 0}
+		, price : {type : Number, default : 1}
+	}]
+});
+
+module.exports = mongoose.model('Cart', CartSchema);
+```
+- `async.waterfall` receives array of anonymous functions. The first parameter is always callback.
