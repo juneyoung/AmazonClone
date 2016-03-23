@@ -1,7 +1,9 @@
 var router = require('express').Router();
 var User = require('../models/user');
+var Cart = require('../models/cart');
 var passport = require('passport');
 var passportConfig = require('../config/passport');
+var async = require('async');
 
 // ----- legacy code
 /*
@@ -51,6 +53,49 @@ router.get('/signup', function(req, res, next){
 });
 
 router.post('/signup', function(req, res, next){
+
+	console.log('This is signup Post');
+
+	async.waterfall([
+		function (callback){
+			console.log('This is waterfall1');
+			var user = new User();
+			user.profile.name = req.body.name;
+			user.email = req.body.email;
+			user.password = req.body.password;
+			user.profile.picture = user.gravatar();
+			console.log(user);
+
+			//mongoose method
+			User.findOne({email : req.body.email}, function(err, existingUser){
+				if(existingUser) {
+					req.flash('errors', req.body.email + ' is already exist');
+					//console.log(req.body.email + ' is already exist');
+					return res.redirect('/signup');
+				} else {
+					user.save(function(err, user){
+						if(err) return next(err);
+						callback(null, user);		
+					});
+				}
+			});
+		}
+		, function (user) {
+			console.log('This is waterfall2');
+			var cart = new Cart();
+			cart.owner = user._id;
+			cart.save(function(err){
+				if(err) return next(err);
+				req.logIn(user, function(err){
+					if(err) return next(err);
+					res.redirect('/profile');
+				});
+			});
+		}
+	]);
+
+
+	/*
 	var user = new User();
 	user.profile.name = req.body.name;
 	user.email = req.body.email;
@@ -71,14 +116,17 @@ router.post('/signup', function(req, res, next){
 				//return res.redirect('/profile');
 
 				//user is on cookie & session
-				req.logIn(user, function(err){
-					if(err) return next(err);
-					res.redirect('/profile');
-				});
 
+
+				//removed in lecture 49 (Cart part)
+				//req.logIn(user, function(err){
+				//	if(err) return next(err);
+				//	res.redirect('/profile');
+				//});		
 			});
 		}
 	});
+	*/
 });
 
 router.get('/logout', function(req, res, next){
