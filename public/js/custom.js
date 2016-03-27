@@ -1,4 +1,6 @@
 $(function(){
+
+	//Searching part
 	$('#search').keyup(function(){
 		var search_term = $(this).val();
 		console.log(search_term);
@@ -41,5 +43,55 @@ $(function(){
 			}
 		});
 	});
+
+
+	$(document).on('click', '#plus', function(e){
+		//blocking refreshing
+		e.preventDefault();
+		var priceValue = parseFloat($('#priceValue').val());
+		var quantity = parseInt($('#quantity').val());
+
+		console.log(priceValue);
+
+		// Add original
+		priceValue += parseFloat($('#priceHidden').val());
+		quantity += 1;
+
+		console.log(quantity);
+
+		$('#quantity').val(quantity);
+		$('#priceValue').val(priceValue.toFixed(2));
+		$('#total').html(quantity);
+	});
+
+	$(document).on('click', '#minus', function(e){
+		//blocking refreshing
+		e.preventDefault();
+		var priceValue = parseFloat($('#priceValue').val());
+		var quantity = parseInt($('#quantity').val());
+
+		console.log(priceValue);
+
+		/* This is not order, just a shopping cart
+		if(quantity < 1){
+			priceValue -= parseFloat($('#priceHidden').val());
+			quantity -= 1;
+		}
+		*/
+
+		if(quantity == 1) {
+			priceValue = $('#priceValue').val();
+			quantity = 1;
+		} else {
+			priceValue -= parseFloat($('#priceHidden').val());
+			quantity -= 1;
+		}
+
+		console.log(quantity);
+
+		$('#quantity').val(quantity);
+		$('#priceValue').val(priceValue.toFixed(2));
+		$('#total').html(quantity);
+	});	
 
 });

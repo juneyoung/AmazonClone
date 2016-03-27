@@ -1,5 +1,6 @@
 var router = require('express').Router();
 var Product = require('../models/product');
+var Cart = require('../models/cart');
 
 function paginate(req, res, next){
 	var perPage = 9;
@@ -55,6 +56,58 @@ stream.on('close', function(){
 stream.on('error', function(err){
 	console.error(err);
 });
+
+
+//Increase and decrease amount of items in cart
+router.get('/cart', function(req, res, next){
+	Cart.findOne({owner : req.user._id})
+	.populate('items.item')
+	.exec(function(err, foundCart){
+		if(err) return next(err);
+		res.render('main/cart', {
+			foundCart : foundCart
+			, message : req.flash('remove')
+		});
+	});
+});
+
+
+
+//Cart router
+router.post('/product/:product_id', function(req, res, next){
+	Cart.findOne({owner : req.user._id}, function(err, cart){
+		cart.items.push({
+			item: req.body.product_id
+			, price : parseFloat(req.body.priceValue)
+			, quantity : parseInt(req.body.quantity)
+		});
+		//Total price - toFixed handles under dot
+		cart.total = (cart.total + parseFloat(req.body.priceValue)).toFixed(2);
+
+		cart.save(function(err){
+			if(err) return next(err);
+			return res.redirect('/cart');
+		});
+	});
+});
+
+router.post('/remove', function(req, res, next){
+	Cart.findOne({ owner : req.user._id }, function(err, foundCart){
+		if(err) return next(err);
+
+		//
+		foundCart.items.pull(String(req.body.item));
+
+		foundCart.total = (foundCart.total - parseFloat(req.body.price)).toFixed(2);
+		foundCart.save(function(err, found){
+			if(err) return next(err);
+			req.flash('remove', 'Successfully removed');
+			res.redirect('/cart');
+		});
+	});
+});
+
+
 
 router.get('/', function(req, res, next){
 	//res.json('Hello, node!');

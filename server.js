@@ -28,6 +28,9 @@ var secret = require('./config/secret.js');
 var User = require('./models/user');
 var Category = require('./models/category');
 
+//0327
+var cartLength = require('./middlewares/middleware');
+
 
 var app = express();
 
@@ -63,6 +66,11 @@ app.use(function(req, res, next){
 	res.locals.user = req.user;
 	next();
 });
+
+
+//0327 Cart middleware
+app.use(cartLength);
+
 
 //카테고리
 app.use(function(req, res, next){

@@ -63,6 +63,28 @@
       </li>
 
       <% } %>
+
+
+      <!-- 
+        Handling user cart (0327)
+        'cart' is actually cart length.
+        do not know why none-login user have cart length
+      -->
+      <% if(user) { %>
+        <li>
+          <a href='/cart' class='glyphicon glyphicon-shopping-cart'>
+            <span class='badge'> <%= cart %> </span>
+          </a>
+        </li>
+      <% } else { %>
+        <li>
+          <a href='/cart' class='glyphicon glyphicon-shopping-cart'>
+            <span class='badge'> 0 </span>
+          </a>
+        </li>
+      <% } %>
+
+
       
     </ul>
 
