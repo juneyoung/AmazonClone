@@ -40,3 +40,5 @@ var CartSchema = new Schema({
 module.exports = mongoose.model('Cart', CartSchema);
 ```
 - `async.waterfall` receives array of anonymous functions. The first parameter is always callback.
+- `express-flash` library for messaging to router. 
+- `module.exports` can return anonymous function.
