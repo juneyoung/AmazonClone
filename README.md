@@ -46,3 +46,4 @@ module.exports = mongoose.model('Cart', CartSchema);
 
 #### 2016.04
 - people already provide decent UIs in "http://bootsnipp.com/"
+- handling annoying node version control in OSX `nvm alias default 5.7.1`, make certain version as a default value.
