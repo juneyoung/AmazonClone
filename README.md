@@ -42,3 +42,7 @@ module.exports = mongoose.model('Cart', CartSchema);
 - `async.waterfall` receives array of anonymous functions. The first parameter is always callback.
 - `express-flash` library for messaging to router. 
 - `module.exports` can return anonymous function.
+
+
+#### 2016.04
+- people already provide decent UIs in "http://bootsnipp.com/"
