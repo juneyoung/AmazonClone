@@ -42,7 +42,11 @@ module.exports = mongoose.model('Cart', CartSchema);
 - `async.waterfall` receives array of anonymous functions. The first parameter is always callback.
 - `express-flash` library for messaging to router. 
 - `module.exports` can return anonymous function.
-- `adding stripe payment` and got error below.
+
+#### 2016.04
+- people already provide decent UIs in "http://bootsnipp.com/"
+- handling annoying node version control in OSX `nvm alias default 5.7.1`, make certain version as a default value.
+- `adding stripe payment` and got an error below.
 ```
 POST /payment 302 50.269 ms - 60
 { profile: 
@@ -66,8 +70,3 @@ Unhandled rejection Error: Invalid integer: NaN
     at _combinedTickCallback (node.js:377:13)
     at process._tickCallback (node.js:401:11)
 ```
-
-
-#### 2016.04
-- people already provide decent UIs in "http://bootsnipp.com/"
-- handling annoying node version control in OSX `nvm alias default 5.7.1`, make certain version as a default value.
