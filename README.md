@@ -42,6 +42,30 @@ module.exports = mongoose.model('Cart', CartSchema);
 - `async.waterfall` receives array of anonymous functions. The first parameter is always callback.
 - `express-flash` library for messaging to router. 
 - `module.exports` can return anonymous function.
+- `adding stripe payment` and got error below.
+```
+POST /payment 302 50.269 ms - 60
+{ profile: 
+   { name: 'juneyoung',
+     picture: 'https://gravatar.com/avatar/117d6d886c127a6aa79a4200df2d46d2?s=200&d=retro' },
+  history: [],
+  __v: 0,
+  email: 'juneyoung@hanmail.net',
+  password: '$2a$10$4ng5bnaMb9nvsmam125xWe6Fsfk0ePxZpSU8lq6NvYVfREibdXxSC',
+  _id: 56f2af4f2424a8621e4d32cf }
+GET /profile 200 66.869 ms - 3082
+Unhandled rejection Error: Invalid integer: NaN
+    at Error._Error (/Users/juneyoungoh/Documents/node_amazon/sample/node_modules/stripe/lib/Error.js:12:17)
+    at Error.Constructor (/Users/juneyoungoh/Documents/node_amazon/sample/node_modules/stripe/lib/utils.js:105:13)
+    at Error.Constructor (/Users/juneyoungoh/Documents/node_amazon/sample/node_modules/stripe/lib/utils.js:105:13)
+    at Function.StripeError.generate (/Users/juneyoungoh/Documents/node_amazon/sample/node_modules/stripe/lib/Error.js:56:14)
+    at IncomingMessage.<anonymous> (/Users/juneyoungoh/Documents/node_amazon/sample/node_modules/stripe/lib/StripeResource.js:138:39)
+    at emitNone (events.js:85:20)
+    at IncomingMessage.emit (events.js:179:7)
+    at endReadableNT (_stream_readable.js:913:12)
+    at _combinedTickCallback (node.js:377:13)
+    at process._tickCallback (node.js:401:11)
+```
 
 
 #### 2016.04
