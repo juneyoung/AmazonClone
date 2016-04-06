@@ -190,7 +190,7 @@ router.post('/payment', function(req, res, next) {
 		});
 	});
 
-
+	res.redirect('/profile');
 });
 
 module.exports = router;
