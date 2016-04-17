@@ -70,3 +70,5 @@ Unhandled rejection Error: Invalid integer: NaN
     at _combinedTickCallback (node.js:377:13)
     at process._tickCallback (node.js:401:11)
 ```
+-> revealed as simple mis-typo, fixed `stipe.charges` to `stripe.charges`
+- adding `spiner.js` put it into `stripeResponseHandler(status, response)` in `custom.js`
