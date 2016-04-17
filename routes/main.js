@@ -1,7 +1,9 @@
 var router = require('express').Router();
 var Product = require('../models/product');
 var Cart = require('../models/cart');
+var User = require('../models/user');
 var stripe = require('stripe')('sk_test_tb9QYACUqYOwh1pOT30Zekxp');
+var async = require('async');
 
 function paginate(req, res, next){
 	var perPage = 9;
@@ -179,7 +181,8 @@ router.get('/product/:id', function(req, res, next){
 
 router.post('/payment', function(req, res, next) {
 	var stripeToken = req.body.stripeToken;
-	var currentCharges = Math.round(req.body.stipeMoney * 100); //view-dollar stripe receives-cent
+
+	var currentCharges = Math.round(req.body.stripeMoney * 100); //view-dollar stripe receives-cent
 	stripe.customers.create({
 		source : stripeToken
 	}).then(function(customer){
@@ -188,9 +191,47 @@ router.post('/payment', function(req, res, next) {
 			, currency : 'usd'
 			, customer : customer.id
 		});
-	});
+	}).then(function(charge){
+		//waterfall 에서 cart/user search + update history and cart
+		async.waterfall([
+			function(callback){
+				Cart.findOne({ owner : req.user._id }, function(err, cart){
+					callback(err, cart);
+				})
+			}
+			, function (cart, callback) {
+				User.findOne({ _id : req.user._id }, function(err, user){
+					//사용자가 존재한다면 카트에 담는다.
+					if(user) {
+						for(var i = 0; i < cart.items.length; i++){
+							user.history.push({
+								paid : cart.items[i].price
+								, item : cart.items[i].item
+							});
+						}
 
-	res.redirect('/profile');
+						user.save(function(err, user) {
+							if(err) return next(err);
+							callback(err, user);						
+						});
+					}
+				});
+			}
+			, function (user, callback) {
+				//after payment, should empty user cart
+				Cart.update({ owner : user._id }, { $set: { items : [], total : 0 } }, function(err, updated){
+					if(updated){
+						res.redirect('/profile');
+					}
+				});
+			}
+		], function(err, result){
+
+		});
+	})
+
+	//comment : disabled at lecture 85 with adding waterfall
+	//res.redirect('/profile');
 });
 
 module.exports = router;

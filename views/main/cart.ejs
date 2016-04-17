@@ -90,7 +90,7 @@
 					                                <div class="form-group">
 					                                    <label for="cardNumber">CARD NUMBER</label>
 					                                    <div class="input-group">
-					                                        <input type="text" class="form-control" name="cardNumber" placeholder="Valid Card Number" required autofocus data-stripe="number" />
+					                                        <input maxlength='16' type="text" class="form-control" name="cardNumber" placeholder="Valid Card Number" required autofocus data-stripe="number" />
 					                                        <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
 					                                    </div>
 					                                </div>                            
@@ -101,17 +101,17 @@
 					                                <div class="form-group">
 					                                    <label for="expMonth">EXPIRATION DATE</label>
 					                                    <div class="col-xs-6 col-lg-6 pl-ziro">
-					                                        <input type="text" class="form-control" name="expMonth" placeholder="MM" required data-stripe="exp_month" />
+					                                        <input maxlength='2' type="text" class="form-control" name="expMonth" placeholder="MM" required data-stripe="exp_month" />
 					                                    </div>
 					                                    <div class="col-xs-6 col-lg-6 pl-ziro">
-					                                        <input type="text" class="form-control" name="expYear" placeholder="YY" required data-stripe="exp_year" />
+					                                        <input maxlength='2' type="text" class="form-control" name="expYear" placeholder="YY" required data-stripe="exp_year" />
 					                                    </div>
 					                                </div>
 					                            </div>
 					                            <div class="col-xs-5 col-md-5 pull-right">
 					                                <div class="form-group">
 					                                    <label for="cvCode">CV CODE</label>
-					                                    <input type="password" class="form-control" name="cvCode" placeholder="CV" required data-stripe="cvc" />
+					                                    <input maxlength='3' type="password" class="form-control" name="cvCode" placeholder="CV" required data-stripe="cvc" />
 					                                </div>
 					                            </div>
 					                        </div>
@@ -159,4 +159,12 @@
 		<!-- End of Modal -->
 
 	</div>
+
+	<div class='row'>
+		<div class='col-lg-2 col-md-offset-6'>
+			<div class='text-center' id='loading'>
+			</div>
+		</div>
+	</div>
 </div>
+

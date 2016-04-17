@@ -33,16 +33,22 @@ router.post('/login', passport.authenticate('local-login', {
 	, failureFlash : true
 }));
 
-router.get('/profile', function(req, res, next){
-	//res.json(req);
-	console.log(req.user);
+router.get('/profile', passportConfig.isAuthenticated, function(req, res, next){
+	//사용자를 찾아서 사용자가 히스토리에 가진 아이템을 조인해서 정보를 가져옴
+	User.findOne({ _id : req.user._id})
+	.populate('history.item')
+	.exec(function(err, foundUser){
+		if(err) return next(err);
+		res.render('accounts/profile',  {user: foundUser});
+	})
 
-	//console.log(req.user.toString())
+	/* Updated on 0417 lecture 86
 	User.findOne({_id: req.user._id}, function(err, user){
 		if(err) return next(err);
 		//기본 ejs 형식으로 두번째에 오브젝트로 페이지에서 필요한 모델을 전달한다.
 		res.render('accounts/profile', {user: user});
 	});
+	*/
 });
 
 
