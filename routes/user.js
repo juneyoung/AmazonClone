@@ -166,4 +166,12 @@ router.post('/edit-profile', function(req, res, next){
 
 });
 
+//scope is what information dev wanted, in this case, we want to retrieve email from fb.
+router.get('/auth/facebook', passport.authenticate('facebook', {scope : 'email'}));
+router.get('/auth/facebook/callback', passport.authenticate('facebook', {
+	successRedirect : '/profile'
+	, failureRedirect : '/login'
+
+}));
+
 module.exports = router;

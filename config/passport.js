@@ -1,6 +1,12 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('../models/user');
+var FacebookStrategy = require('passport-facebook').Strategy;
+var secret = require('../config/secret');
+
+//Add this for fb login users
+var Cart = require('../models/cart');
+var async = require('async');
 
 //serialize and deserialize
 //session에 담기 위해 사용자의 ID 직렬화함
@@ -40,6 +46,48 @@ passport.use('local-login', new LocalStrategy({
 
 		//여기서 전달하는 user 오브젝트가 세션에 저장되서 나중에 req.user.* 로 user 오브젝트에 접근할 수 있음 
 		return done(null, user);
+	});
+}));
+
+passport.use(new FacebookStrategy(secret.facebook, function(token, refreshToken, profile, done){
+	User.findOne({ facebook : profile.id }, function(err, user){
+		if(err) return done(err);
+		if(user){
+			return done(null, user);
+		} else {
+			async.waterfall([
+
+				function(callback){
+					//first time with fb
+					var newUser = new User();
+					newUser.email = profile._json.email;
+					newUser.facebook = profile.id;
+					newUser.tokens.push({kind : 'faceboock', token : token});
+					newUser.profile.name = profile.displayName;
+					newUser.profile.picture = 'https://graph.facebook.com/' + profile.id + '/picture?type=large';	//large,medium,small
+
+					newUser.save(function(err){
+						if(err) return done(err);
+						//sending 2 paramters 
+						callback(err, newUser);
+					});
+				}
+
+				, function(newUser){
+					//recieve one parameter?
+					var cart = new Cart();
+					cart.owner = newUser._id;
+					cart.save(function(err){
+						if(err) return done(err);
+						return done(null, newUser);
+					});
+
+				}
+			], function(err){
+				//Error handling function provieded by async.js
+				console.error(err);
+			}); 
+		}
 	});
 }));
 
