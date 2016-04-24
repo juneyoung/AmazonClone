@@ -76,4 +76,15 @@ Unhandled rejection Error: Invalid integer: NaN
 - `passport.env` is global variables in `node.js`. You can store immutable data in `process.env` object.
 - Got error with fb login(`duplicated user`).
 
+#### Evaluation of the lecture
+##### Pros
+- Good training for `node.js`
+- Good to know third party libraries like `mongoose`, `async`, `stripe`, `elasticsearch`
+
+##### Cons
+- Not good for learning `MongoDB` usage
+- No fancy UI as learner expected. (It is just basic `bootstrap`)
+- Weak at handling errors
+ 
+
 ### The Lecture finished at 24/APR/2016.
