@@ -82,9 +82,9 @@ Unhandled rejection Error: Invalid integer: NaN
 - Good to know third party libraries like `mongoose`, `async`, `stripe`, `elasticsearch`
 
 ##### Cons
-- Not good for learning `MongoDB` usage
+- No good to learn `MongoDB` usage
 - No fancy UI as learner expected. (It is just basic `bootstrap`)
-- Weak at handling errors
+- Not mush focused on error handling
  
 
 ### The Lecture finished at 24/APR/2016.
