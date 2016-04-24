@@ -72,3 +72,8 @@ Unhandled rejection Error: Invalid integer: NaN
 ```
 -> revealed as simple mis-typo, fixed `stipe.charges` to `stripe.charges`
 - adding `spiner.js` put it into `stripeResponseHandler(status, response)` in `custom.js`
+- added `facebook login`. edited `footer`
+- `passport.env` is global variables in `node.js`. You can store immutable data in `process.env` object.
+- Got error with fb login(`duplicated user`).
+
+### The Lecture finished at 24/APR/2016.
